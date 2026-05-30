@@ -689,7 +689,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, onUnmounted, computed, h } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { ElMessage, ElMessageBox, ElInputNumber } from 'element-plus'
 import {
   Document,
@@ -742,7 +742,6 @@ interface AnalysisForm {
 
 // 使用store
 const authStore = useAuthStore()
-const router = useRouter()
 const route = useRoute()
 
 const submitting = ref(false)
@@ -1737,10 +1736,6 @@ const goSimOrder = async () => {
 
     if (orderRes.success) {
       ElMessage.success(`${actionText}订单已提交成功！`)
-      // 可选：跳转到模拟交易页面
-      setTimeout(() => {
-        router.push({ name: 'PaperTradingHome' })
-      }, 1500)
     } else {
       ElMessage.error(orderRes.message || '下单失败')
     }
