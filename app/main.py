@@ -28,7 +28,7 @@ from pathlib import Path
 from app.core.config import settings
 from app.core.database import init_db, close_db
 from app.core.logging_config import setup_logging
-from app.routers import auth_db as auth, analysis, screening, queue, sse, health, favorites, config, reports, database, operation_logs, tags, tushare_init, akshare_init, baostock_init, historical_data, multi_period_sync, financial_data, news_data, social_media, internal_messages, usage_statistics, model_capabilities, cache, logs
+from app.routers import auth_db as auth, analysis, queue, sse, health, favorites, config, reports, news_data, internal_messages, model_capabilities, cache
 from app.routers import sync as sync_router, multi_source_sync
 from app.routers import stocks as stocks_router
 from app.routers import stock_data as stock_data_router
@@ -687,21 +687,15 @@ app.include_router(health.router, prefix="/api", tags=["health"])
 app.include_router(auth.router, prefix="/api/auth", tags=["authentication"])
 app.include_router(analysis.router, prefix="/api/analysis", tags=["analysis"])
 app.include_router(reports.router, tags=["reports"])
-app.include_router(screening.router, prefix="/api/screening", tags=["screening"])
 app.include_router(queue.router, prefix="/api/queue", tags=["queue"])
 app.include_router(favorites.router, prefix="/api", tags=["favorites"])
 app.include_router(stocks_router.router, prefix="/api", tags=["stocks"])
 app.include_router(multi_market_stocks_router.router, prefix="/api", tags=["multi-market"])
 app.include_router(stock_data_router.router, tags=["stock-data"])
 app.include_router(stock_sync_router.router, tags=["stock-sync"])
-app.include_router(tags.router, prefix="/api", tags=["tags"])
 app.include_router(config.router, prefix="/api", tags=["config"])
 app.include_router(model_capabilities.router, tags=["model-capabilities"])
-app.include_router(usage_statistics.router, tags=["usage-statistics"])
-app.include_router(database.router, prefix="/api/system", tags=["database"])
 app.include_router(cache.router, tags=["cache"])
-app.include_router(operation_logs.router, prefix="/api/system", tags=["operation_logs"])
-app.include_router(logs.router, prefix="/api/system", tags=["logs"])
 # 新增：系统配置只读摘要
 from app.routers import system_config as system_config_router
 app.include_router(system_config_router.router, prefix="/api/system", tags=["system"])
@@ -719,14 +713,7 @@ app.include_router(sse.router, prefix="/api/stream", tags=["streaming"])
 app.include_router(sync_router.router)
 app.include_router(multi_source_sync.router)
 app.include_router(paper_router.router, prefix="/api", tags=["paper"])
-app.include_router(tushare_init.router, prefix="/api", tags=["tushare-init"])
-app.include_router(akshare_init.router, prefix="/api", tags=["akshare-init"])
-app.include_router(baostock_init.router, prefix="/api", tags=["baostock-init"])
-app.include_router(historical_data.router, tags=["historical-data"])
-app.include_router(multi_period_sync.router, tags=["multi-period-sync"])
-app.include_router(financial_data.router, tags=["financial-data"])
 app.include_router(news_data.router, tags=["news-data"])
-app.include_router(social_media.router, tags=["social-media"])
 app.include_router(internal_messages.router, tags=["internal-messages"])
 
 
