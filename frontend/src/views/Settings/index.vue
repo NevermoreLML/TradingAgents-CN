@@ -50,30 +50,6 @@
                 <el-icon><Tools /></el-icon>
                 <span>配置管理</span>
               </el-menu-item>
-              <el-menu-item index="usage">
-                <el-icon><DataAnalysis /></el-icon>
-                <span>使用统计</span>
-              </el-menu-item>
-              <el-menu-item index="cache">
-                <el-icon><Coin /></el-icon>
-                <span>缓存管理</span>
-              </el-menu-item>
-            </template>
-
-            <!-- 系统管理菜单 -->
-            <template v-else-if="currentSection === 'admin'">
-              <el-menu-item index="database">
-                <el-icon><Monitor /></el-icon>
-                <span>数据库管理</span>
-              </el-menu-item>
-              <el-menu-item index="logs">
-                <el-icon><Document /></el-icon>
-                <span>操作日志</span>
-              </el-menu-item>
-              <el-menu-item index="sync">
-                <el-icon><Refresh /></el-icon>
-                <span>多数据源同步</span>
-              </el-menu-item>
             </template>
           </el-menu>
         </el-card>
@@ -277,107 +253,6 @@
           </div>
         </el-card>
 
-        <!-- 使用统计 -->
-        <el-card v-show="activeTab === 'usage'" class="settings-content" shadow="never">
-          <template #header>
-            <h3>使用统计</h3>
-          </template>
-
-          <div class="cache-content">
-            <el-alert
-              title="使用统计与计费"
-              type="info"
-              description="查看模型使用情况、Token 消耗和成本统计"
-              :closable="false"
-              style="margin-bottom: 20px;"
-            />
-            <el-button type="primary" @click="goToUsageStatistics">
-              查看使用统计
-            </el-button>
-          </div>
-        </el-card>
-
-        <!-- 缓存管理 -->
-        <el-card v-show="activeTab === 'cache'" class="settings-content" shadow="never">
-          <template #header>
-            <h3>缓存管理</h3>
-          </template>
-
-          <div class="settings-section">
-            <el-alert
-              title="缓存管理"
-              type="info"
-              description="管理系统缓存，清理过期数据"
-              :closable="false"
-              style="margin-bottom: 20px;"
-            />
-            <el-button type="primary" @click="goToCacheManagement">
-              进入缓存管理
-            </el-button>
-          </div>
-        </el-card>
-
-        <!-- 数据库管理 -->
-        <el-card v-show="activeTab === 'database'" class="settings-content" shadow="never">
-          <template #header>
-            <h3>数据库管理</h3>
-          </template>
-
-          <div class="database-content">
-            <el-alert
-              title="数据库管理"
-              type="info"
-              description="管理数据库连接、备份和恢复"
-              :closable="false"
-              style="margin-bottom: 20px;"
-            />
-            <el-button type="primary" @click="goToDatabaseManagement">
-              进入数据库管理
-            </el-button>
-          </div>
-        </el-card>
-
-        <!-- 操作日志 -->
-        <el-card v-show="activeTab === 'logs'" class="settings-content" shadow="never">
-          <template #header>
-            <h3>操作日志</h3>
-          </template>
-
-          <div class="logs-content">
-            <el-alert
-              title="操作日志"
-              type="info"
-              description="查看系统操作日志和审计记录"
-              :closable="false"
-              style="margin-bottom: 20px;"
-            />
-            <el-button type="primary" @click="goToOperationLogs">
-              查看操作日志
-            </el-button>
-          </div>
-        </el-card>
-
-        <!-- 多数据源同步 -->
-        <el-card v-show="activeTab === 'sync'" class="settings-content" shadow="never">
-          <template #header>
-            <h3>多数据源同步</h3>
-          </template>
-
-          <div class="sync-content">
-            <el-alert
-              title="多数据源同步"
-              type="info"
-              description="管理多个数据源的同步配置和状态"
-              :closable="false"
-              style="margin-bottom: 20px;"
-            />
-            <el-button type="primary" @click="goToMultiSourceSync">
-              进入同步管理
-            </el-button>
-          </div>
-        </el-card>
-
-
       </el-col>
     </el-row>
 
@@ -446,12 +321,7 @@ import {
   TrendCharts,
   Bell,
   Lock,
-  Tools,
-  Monitor,
-  Coin,
-  Document,
-  Refresh,
-  DataAnalysis
+  Tools
 } from '@element-plus/icons-vue'
 
 const router = useRouter()
@@ -509,21 +379,6 @@ const updateSectionFromRoute = () => {
   } else if (path === '/settings/config') {
     currentSection.value = 'config'
     activeTab.value = 'config'
-  } else if (path === '/settings/usage') {
-    currentSection.value = 'config'
-    activeTab.value = 'usage'
-  } else if (path === '/settings/cache') {
-    currentSection.value = 'config'
-    activeTab.value = 'cache'
-  } else if (path === '/settings/database') {
-    currentSection.value = 'admin'
-    activeTab.value = 'database'
-  } else if (path === '/settings/logs') {
-    currentSection.value = 'admin'
-    activeTab.value = 'logs'
-  } else if (path === '/settings/sync') {
-    currentSection.value = 'admin'
-    activeTab.value = 'sync'
   }
 }
 
@@ -712,26 +567,6 @@ const saveNotificationSettings = async () => {
 // 导航函数
 const goToConfigManagement = () => {
   router.push('/settings/config')
-}
-
-const goToUsageStatistics = () => {
-  router.push('/settings/usage')
-}
-
-const goToCacheManagement = () => {
-  router.push('/settings/cache')
-}
-
-const goToDatabaseManagement = () => {
-  router.push('/settings/database')
-}
-
-const goToOperationLogs = () => {
-  router.push('/settings/logs')
-}
-
-const goToMultiSourceSync = () => {
-  router.push('/settings/sync')
 }
 
 // 修改密码相关

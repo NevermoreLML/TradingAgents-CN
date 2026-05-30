@@ -16,40 +16,9 @@
           <el-icon><TrendCharts /></el-icon>
           快速分析
         </el-button>
-        <el-button size="large" @click="goToScreening">
-          <el-icon><Search /></el-icon>
-          股票筛选
-        </el-button>
       </div>
     </div>
 
-
-    <!-- 学习中心推荐卡片 -->
-    <el-card class="learning-highlight-card">
-      <div class="learning-highlight">
-        <div class="learning-icon">
-          <el-icon size="48"><Reading /></el-icon>
-        </div>
-        <div class="learning-content">
-          <h2>📚 AI股票分析学习中心</h2>
-          <p>从零开始学习AI、大语言模型和智能股票分析。了解多智能体系统如何协作分析股票，掌握提示词工程技巧，选择合适的大模型，理解AI的能力与局限性。</p>
-          <div class="learning-features">
-            <span class="feature-tag">🤖 AI基础知识</span>
-            <span class="feature-tag">✍️ 提示词工程</span>
-            <span class="feature-tag">🎯 模型选择</span>
-            <span class="feature-tag">📊 分析原理</span>
-            <span class="feature-tag">⚠️ 风险认知</span>
-            <span class="feature-tag">🎓 实战教程</span>
-          </div>
-        </div>
-        <div class="learning-action">
-          <el-button type="primary" size="large" @click="goToLearning">
-            <el-icon><Reading /></el-icon>
-            开始学习
-          </el-button>
-        </div>
-      </div>
-    </el-card>
 
     <!-- 主要功能区域 -->
     <el-row :gutter="24" class="main-content">
@@ -64,28 +33,6 @@
               <div class="action-content">
                 <h3>单股分析</h3>
                 <p>深度分析单只股票的投资价值</p>
-              </div>
-              <el-icon class="action-arrow"><ArrowRight /></el-icon>
-            </div>
-
-            <div class="action-item" @click="goToBatchAnalysis">
-              <div class="action-icon">
-                <el-icon><Files /></el-icon>
-              </div>
-              <div class="action-content">
-                <h3>批量分析</h3>
-                <p>同时分析多只股票，提高效率</p>
-              </div>
-              <el-icon class="action-arrow"><ArrowRight /></el-icon>
-            </div>
-
-            <div class="action-item" @click="goToScreening">
-              <div class="action-icon">
-                <el-icon><Search /></el-icon>
-              </div>
-              <div class="action-content">
-                <h3>股票筛选</h3>
-                <p>通过多维度条件筛选优质股票</p>
               </div>
               <el-icon class="action-arrow"><ArrowRight /></el-icon>
             </div>
@@ -174,18 +121,11 @@
           <template #header>
             <div class="card-header">
               <span>我的自选股</span>
-              <el-button type="text" size="small" @click="goToFavorites">
-                查看全部 <el-icon><ArrowRight /></el-icon>
-              </el-button>
             </div>
           </template>
 
           <div v-if="favoriteStocks.length === 0" class="empty-favorites">
-            <el-empty description="暂无自选股" :image-size="60">
-              <el-button type="primary" size="small" @click="goToFavorites">
-                添加自选股
-              </el-button>
-            </el-empty>
+            <el-empty description="暂无自选股" :image-size="60" />
           </div>
 
           <div v-else class="favorites-list">
@@ -211,11 +151,6 @@
             </div>
           </div>
 
-          <div v-if="favoriteStocks.length > 5" class="favorites-footer">
-            <el-button type="text" size="small" @click="goToFavorites">
-              查看全部 {{ favoriteStocks.length }} 只自选股
-            </el-button>
-          </div>
         </el-card>
 
         <!-- 模拟交易账户 -->
@@ -223,9 +158,6 @@
           <template #header>
             <div class="card-header">
               <span>模拟交易账户</span>
-              <el-button type="text" size="small" @click="goToPaperTrading">
-                查看详情 <el-icon><ArrowRight /></el-icon>
-              </el-button>
             </div>
           </template>
 
@@ -285,9 +217,6 @@
           <div v-else class="empty-state">
             <el-icon class="empty-icon"><InfoFilled /></el-icon>
             <p>暂无账户信息</p>
-            <el-button type="primary" size="small" @click="goToPaperTrading">
-              查看模拟交易
-            </el-button>
           </div>
         </el-card>
 
@@ -304,13 +233,10 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import {
   TrendCharts,
-  Search,
   Document,
-  Files,
   List,
   ArrowRight,
-  InfoFilled,
-  Reading
+  InfoFilled
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import type { AnalysisTask, AnalysisStatus } from '@/types/analysis'
@@ -363,24 +289,12 @@ const goToSingleAnalysis = () => {
   router.push('/analysis/single')
 }
 
-const goToBatchAnalysis = () => {
-  router.push('/analysis/batch')
-}
-
-const goToScreening = () => {
-  router.push('/screening')
-}
-
 const goToQueue = () => {
   router.push('/queue')
 }
 
 const goToHistory = () => {
   router.push('/tasks?tab=completed')
-}
-
-const goToLearning = () => {
-  router.push('/learning')
 }
 
 const viewAnalysis = (analysis: AnalysisTask) => {
@@ -465,10 +379,6 @@ const formatTime = (time: string) => {
 }
 
 // 自选股相关方法
-const goToFavorites = () => {
-  router.push('/favorites')
-}
-
 const viewStockDetail = (stock: any) => {
   // 可以跳转到股票详情页或分析页
   router.push(`/analysis/single?stock_code=${stock.stock_code}`)
@@ -557,11 +467,6 @@ const loadPaperAccount = async () => {
     console.error('加载模拟交易账户失败:', error)
     paperAccount.value = null
   }
-}
-
-// 跳转到模拟交易页面
-const goToPaperTrading = () => {
-  router.push('/paper')
 }
 
 // 格式化金额

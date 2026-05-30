@@ -39,10 +39,6 @@
             <el-icon><TrendCharts /></el-icon>
             单股分析
           </el-link>
-          <el-link type="primary" @click="$router.push('/screening')">
-            <el-icon><Search /></el-icon>
-            股票筛选
-          </el-link>
           <el-link type="primary" @click="$router.push('/queue')">
             <el-icon><Document /></el-icon>
             队列管理
@@ -60,7 +56,6 @@ import {
   ArrowLeft,
   House,
   TrendCharts,
-  Search,
   Document
 } from '@element-plus/icons-vue'
 

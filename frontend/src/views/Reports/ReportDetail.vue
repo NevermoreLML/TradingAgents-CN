@@ -732,10 +732,6 @@ const applyToTrading = async () => {
 
     if (orderRes.success) {
       ElMessage.success(`${actionText}订单已提交成功！`)
-      // 可选：跳转到模拟交易页面
-      setTimeout(() => {
-        router.push({ name: 'PaperTradingHome' })
-      }, 1500)
     } else {
       ElMessage.error(orderRes.message || '下单失败')
     }

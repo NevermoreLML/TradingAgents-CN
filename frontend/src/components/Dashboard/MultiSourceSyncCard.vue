@@ -7,17 +7,6 @@
             <el-icon class="header-icon"><Connection /></el-icon>
             <span class="header-title">多数据源同步</span>
           </div>
-          <div class="header-right">
-            <el-button 
-              type="primary" 
-              size="small" 
-              link
-              @click="goToSyncPage"
-            >
-              管理
-              <el-icon><ArrowRight /></el-icon>
-            </el-button>
-          </div>
         </div>
       </template>
 
@@ -117,11 +106,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { 
   Connection, 
-  ArrowRight, 
   Refresh 
 } from '@element-plus/icons-vue'
 import { 
@@ -131,9 +118,6 @@ import {
   type SyncStatus, 
   type DataSourceStatus 
 } from '@/api/sync'
-
-// 路由
-const router = useRouter()
 
 // 响应式数据
 const loading = ref(false)
@@ -198,11 +182,6 @@ const quickSync = async () => {
   } finally {
     syncing.value = false
   }
-}
-
-// 跳转到同步管理页面
-const goToSyncPage = () => {
-  router.push('/settings/sync')
 }
 
 // 开始状态轮询
