@@ -199,7 +199,7 @@ class Settings(BaseSettings):
 
 
     # 基础信息同步任务配置（可配置调度）
-    SYNC_STOCK_BASICS_ENABLED: bool = Field(default=True)
+    SYNC_STOCK_BASICS_ENABLED: bool = Field(default=False)
     # 优先使用 CRON 表达式，例如 "30 6 * * *" 表示每日 06:30
     SYNC_STOCK_BASICS_CRON: str = Field(default="")
     # 若未提供 CRON，则使用简单时间字符串 "HH:MM"（24小时制）
@@ -208,13 +208,13 @@ class Settings(BaseSettings):
     TIMEZONE: str = Field(default="Asia/Shanghai")
 
     # 实时行情入库任务
-    QUOTES_INGEST_ENABLED: bool = Field(default=True)
+    QUOTES_INGEST_ENABLED: bool = Field(default=False)
     QUOTES_INGEST_INTERVAL_SECONDS: int = Field(
         default=360,
         description="实时行情采集间隔（秒）。默认360秒（6分钟），免费用户建议>=300秒，付费用户可设置5-60秒"
     )
     # 休市期/启动兜底补数（填充上一笔快照）
-    QUOTES_BACKFILL_ON_STARTUP: bool = Field(default=True)
+    QUOTES_BACKFILL_ON_STARTUP: bool = Field(default=False)
     QUOTES_BACKFILL_ON_OFFHOURS: bool = Field(default=True)
 
     # 实时行情接口轮换配置
@@ -238,7 +238,7 @@ class Settings(BaseSettings):
     TUSHARE_RATE_LIMIT_SAFETY_MARGIN: float = Field(default=0.8, ge=0.1, le=1.0, description="速率限制安全边际")
 
     # Tushare统一数据同步配置
-    TUSHARE_UNIFIED_ENABLED: bool = Field(default=True)
+    TUSHARE_UNIFIED_ENABLED: bool = Field(default=False)
     TUSHARE_BASIC_INFO_SYNC_ENABLED: bool = Field(default=True)
     TUSHARE_BASIC_INFO_SYNC_CRON: str = Field(default="0 2 * * *")  # 每日凌晨2点
     TUSHARE_QUOTES_SYNC_ENABLED: bool = Field(default=True)
@@ -256,7 +256,7 @@ class Settings(BaseSettings):
     TUSHARE_INIT_AUTO_START: bool = Field(default=False, description="应用启动时自动检查并初始化数据")
 
     # AKShare统一数据同步配置
-    AKSHARE_UNIFIED_ENABLED: bool = Field(default=True, description="启用AKShare统一数据同步")
+    AKSHARE_UNIFIED_ENABLED: bool = Field(default=False, description="启用AKShare统一数据同步")
     AKSHARE_BASIC_INFO_SYNC_ENABLED: bool = Field(default=True, description="启用基础信息同步")
     AKSHARE_BASIC_INFO_SYNC_CRON: str = Field(default="0 3 * * *", description="基础信息同步CRON表达式")  # 每日凌晨3点
     AKSHARE_QUOTES_SYNC_ENABLED: bool = Field(default=True, description="启用行情同步")
@@ -282,7 +282,7 @@ class Settings(BaseSettings):
     # ==================== BaoStock统一数据同步配置 ====================
 
     # BaoStock统一数据同步总开关
-    BAOSTOCK_UNIFIED_ENABLED: bool = Field(default=True, description="启用BaoStock统一数据同步")
+    BAOSTOCK_UNIFIED_ENABLED: bool = Field(default=False, description="启用BaoStock统一数据同步")
 
     # BaoStock数据同步任务配置
     BAOSTOCK_BASIC_INFO_SYNC_ENABLED: bool = Field(default=True, description="启用基础信息同步")
@@ -320,7 +320,7 @@ class Settings(BaseSettings):
     US_DEFAULT_DATA_SOURCE: str = Field(default="yfinance", description="美股默认数据源（yfinance/finnhub）")
 
     # ===== 新闻数据同步服务配置 =====
-    NEWS_SYNC_ENABLED: bool = Field(default=True)
+    NEWS_SYNC_ENABLED: bool = Field(default=False)
     NEWS_SYNC_CRON: str = Field(default="0 */2 * * *")  # 每2小时
     NEWS_SYNC_HOURS_BACK: int = Field(default=24)
     NEWS_SYNC_MAX_PER_SOURCE: int = Field(default=50)
